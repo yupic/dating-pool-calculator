@@ -77,6 +77,8 @@
     .chart-card{padding:21px 24px 17px;min-width:0}
     .chart-header{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
     .chart-sub{margin:5px 0 0;font-size:13px;color:var(--muted)}
+    .chart-vintage{margin:14px 0 0;padding:10px 12px;border-left:3px solid #8d7132;border-radius:0 8px 8px 0;background:#faf5e7;color:#4e4021;font-size:13px}
+    .chart-vintage strong{display:block;margin-bottom:2px;font-size:14px}
     .chart-unit{min-width:134px}
     .chart-unit span{min-height:28px;padding:4px 7px}
     .chart-figure{margin:18px 0 0;padding-top:17px}
@@ -224,6 +226,7 @@
               <label><input name="units" type="radio" value="percent"><span>Доля</span></label>
             </fieldset>
           </div>
+          <p class="chart-vintage" id="income-vintage"><strong>База модели — 2024 год</strong> Численность — на 1 января 2024 года, суммы на графике приведены к уровню 2024 года. На 2026 год ориентир по доходам — примерно на 20% выше, судя по росту средней начисленной зарплаты.</p>
           <figure class="chart-figure" id="chart-figure">
             <div class="chart">
               <div class="axis" id="axis" aria-hidden="true"></div>
@@ -248,6 +251,7 @@
         <p><strong>Курение.</strong> Доли рассчитаны отдельно по городу и пятилетней группе по анкетам Росстата за 2024 год. Учитывается ежедневное и периодическое употребление. Электронные сигареты включают системы нагревания табака. Те, кто использует оба вида, входят в обе оценки. ИМТ и курение считаются независимыми от остальных фильтров внутри возрастной группы. <a href="https://base.garant.ru/409460001/">Анкета Росстата</a> · <a href="https://tochno.st/datasets/surveys">Архив микроданных</a>.</p>
         <p><strong>Доходы.</strong> График показывает средний за 12 месяцев трудовой доход после налогов, включая подработку и самозанятость. Доходы 2022 и 2023 годов пересчитаны к уровню 2024 года по росту средней зарплаты в выбранном городе. <a id="wages-source" href="https://78.rosstat.gov.ru/storage/mediabank/11000125.pdf">Зарплаты Петростата</a> · <a href="https://tochno.st/datasets/surveys">Микроданные Росстата</a>.</p>
         <p>Распределения рассчитаны с весами опроса по образованию, семейному положению и пятилетним группам возраста. Если анкет мало, больший вес получают данные соседних возрастных групп с тем же образованием и семейным положением. Национальность, ИМТ и курение влияют на график через возрастной состав выборки. Верхний интервал доходов оценивается по небольшому числу ответов.</p>
+        <p>Ориентир на 2026 год получен сравнением средней начисленной зарплаты за январь–июнь 2026 года со средней за весь 2024 год. Разница составила около 18% в Петербурге и 21% в Москве. Это ориентир по средней зарплате до вычета налогов. <a href="https://78.rosstat.gov.ru/news/document/290594?print=1">Петростат</a> · <a href="https://base.garant.ru/414881820/">Доклад Мосстата</a>.</p>
       </div>
     </details>
     <footer class="footer"><span id="footer-city">Санкт-Петербург</span> · Диапазон от 20 до 65 лет включительно</footer>
