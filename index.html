@@ -64,6 +64,7 @@
     .segments label{position:relative;flex:1;display:flex;min-width:0}
     .segments input{position:absolute;opacity:0;width:1px;height:1px}
     .segments span{display:grid;place-items:center;width:100%;min-height:34px;padding:5px 3px;border-radius:7px;text-align:center;color:#43564b;font-size:12px;white-space:nowrap;cursor:pointer}
+    .baldness-options span{white-space:normal;overflow-wrap:anywhere}
     .segments input:checked + span{background:#fff;color:var(--forest);font-weight:750;box-shadow:0 1px 4px #2137281b}
     .segments input:focus-visible + span{outline:2px solid #167750;outline-offset:0}
     .results{display:grid;gap:16px;min-width:0}
@@ -209,6 +210,15 @@
           </div>
           <p class="filter-note" id="smoking-note">Кто пользуется обоими видами, учитывается в обоих вариантах.</p>
         </fieldset>
+        <fieldset class="filter-block" id="baldness-filter" aria-describedby="baldness-note">
+          <legend>Облысение</legend>
+          <div class="segments baldness-options">
+            <label><input name="baldness" type="radio" value="any" checked><span>Неважно</span></label>
+            <label><input name="baldness" type="radio" value="mild"><span>Без выраженного облысения</span></label>
+            <label><input name="baldness" type="radio" value="noticeable"><span>Заметное облысение</span></label>
+          </div>
+          <p class="filter-note" id="baldness-note">Стадии по шкале Норвуда. Доля рассчитывается отдельно для каждого возраста.</p>
+        </fieldset>
       </form>
 
       <div class="results">
@@ -249,8 +259,12 @@
         <p><strong>Образование, брак и рост.</strong> Перепись даёт отдельные доли по образованию и браку. <span id="marriage-method">Их сочетание оценивается с поправкой на связь образования с семейным положением.</span> К высшему отнесено законченное образование, включая бакалавриат. Фильтр «Не в браке» включает незарегистрированные союзы. <span id="height-method">Для мужчин ростом выше 175 см используется ориентир в 60% по измерениям центров здоровья 2010–2012 годов.</span> <span id="spb-marriage-source"><a href="https://demreview.hse.ru/article/view/13877">Исследование о браке и образовании</a> · </span><a id="height-source" href="https://medass.su/wp-content/uploads/2018/04/bistnr.pdf#page=339">Данные о росте</a>.</p>
         <p><strong>ИМТ.</strong> Доли для каждого пола и пятилетней группы рассчитаны с весами обследования по измерениям роста и веса в городах-миллионниках, включая Петербург и Москву, в обследовании Росстата за 2023 год. Доля нужной категории применяется отдельно в каждой возрастной группе. <a href="https://rosstat.gov.ru/free_doc/new_site/food23/index.html">Обследование Росстата</a> · <a href="https://tochno.st/datasets/surveys">Архив микроданных</a>.</p>
         <p><strong>Курение.</strong> Доли рассчитаны отдельно по городу и пятилетней группе по анкетам Росстата за 2024 год. Учитывается ежедневное и периодическое употребление. Электронные сигареты включают системы нагревания табака. Те, кто использует оба вида, входят в обе оценки. ИМТ и курение считаются независимыми от остальных фильтров внутри возрастной группы. <a href="https://base.garant.ru/409460001/">Анкета Росстата</a> · <a href="https://tochno.st/datasets/surveys">Архив микроданных</a>.</p>
+        <div id="baldness-method">
+          <p><strong>Облысение.</strong> Для мужчин 20–65 лет вариант «Без выраженного облысения» охватывает стадии I–III по шкале Норвуда, а «Заметное облысение» — стадии IV–VII. Доля стадий IV–VII зависит только от возраста. Доли 6%, 20%, 25%, 29% и 50% для групп 18–29, 30–39, 40–49, 50–59 и 60–69 лет используются как опорные значения на верхней границе каждой группы. В 18 лет задано 0%, в 60 лет — 29%. Между точками доля меняется линейно. Для 61–65 лет используется отрезок от 29% в 60 лет до 50% в 69 лет. К каждому возрасту в выбранном диапазоне применяется своя доля.</p>
+          <p>Такой расчёт даёт оптимистичную оценку числа мужчин без выраженного облысения. Доли намеренно занижены, а строгой статистической нижней границы у этой модели нет. Лечение и пересадка волос в расчёт не входят. Возможности пересадки при выраженном облысении ограничены запасом донорских волос, но успешная пересадка может изменить внешний вид. <a href="https://pubmed.ncbi.nlm.nih.gov/14819896/">Hamilton, 1951</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/1188424/">Norwood, 1975</a> · <a href="https://accessmedicine.mhmedical.com/content.aspx?bookid=392&amp;sectionid=41138997">Fitzpatrick’s Dermatology, табл. 256-1</a>.</p>
+        </div>
         <p><strong>Доходы.</strong> График показывает средний за 12 месяцев трудовой доход после налогов, включая подработку и самозанятость. Доходы 2022 и 2023 годов пересчитаны к уровню 2024 года по росту средней зарплаты в выбранном городе. <a id="wages-source" href="https://78.rosstat.gov.ru/storage/mediabank/11000125.pdf">Зарплаты Петростата</a> · <a href="https://tochno.st/datasets/surveys">Микроданные Росстата</a>.</p>
-        <p>Распределения рассчитаны с весами опроса по образованию, семейному положению и пятилетним группам возраста. Если анкет мало, больший вес получают данные соседних возрастных групп с тем же образованием и семейным положением. Национальность, ИМТ и курение влияют на график через возрастной состав выборки. Верхний интервал доходов оценивается по небольшому числу ответов.</p>
+        <p>Распределения рассчитаны с весами опроса по образованию, семейному положению и пятилетним группам возраста. Если анкет мало, больший вес получают данные соседних возрастных групп с тем же образованием и семейным положением. Национальность, ИМТ, курение и облысение у мужчин влияют на график через возрастной состав выборки. Верхний интервал доходов оценивается по небольшому числу ответов.</p>
         <p>Ориентир на 2026 год получен сравнением средней начисленной зарплаты за январь–июнь 2026 года со средней за весь 2024 год. Разница составила около 18% в Петербурге и 21% в Москве. Это ориентир по средней зарплате до вычета налогов. <a href="https://78.rosstat.gov.ru/news/document/290594?print=1">Петростат</a> · <a href="https://base.garant.ru/414881820/">Доклад Мосстата</a>.</p>
       </div>
     </details>
@@ -264,6 +278,16 @@
       JSON.parse(document.getElementById("model").textContent);
     const byId = id => document.getElementById(id);
     const form = byId("filters");
+    const baldnessFilter = byId("baldness-filter");
+    const baldnessPrevalence = [
+      [18, 0.00],
+      [29, 0.06],
+      [39, 0.20],
+      [49, 0.25],
+      [59, 0.29],
+      [60, 0.29],
+      [69, 0.50],
+    ];
     const units = byId("chart-unit");
     const ageInputs = [form.elements.ageFrom, form.elements.ageTo];
     let ageRange = ageInputs.map(input => input.valueAsNumber);
@@ -358,11 +382,25 @@
       return {button, longLabel, count};
     });
 
+    function baldnessShare(age, selection) {
+      if (selection === "any") return 1;
+      const upper = baldnessPrevalence.findIndex(([pointAge]) => pointAge >= age);
+      const [fromAge, fromShare] = baldnessPrevalence[upper - 1];
+      const [toAge, toShare] = baldnessPrevalence[upper];
+      const share = fromShare + (toShare - fromShare) * (age - fromAge) / (toAge - fromAge);
+      return selection === "noticeable" ? share : 1 - share;
+    }
+
     function model() {
+      const baldness = sexKey === "men" ? form.elements.baldness.value : "any";
       const bandPopulations = data.incomeShares.map(() => 0);
+      const baldnessPopulations = bandPopulations.slice();
       for (let age = ageRange[0]; age <= ageRange[1]; age++) {
         const offset = age - minAge;
-        bandPopulations[Math.floor(offset / bandSize)] += data.population[offset];
+        const band = Math.floor(offset / bandSize);
+        const count = data.population[offset];
+        bandPopulations[band] += count;
+        baldnessPopulations[band] += count * baldnessShare(age, baldness);
       }
       const population = sum(bandPopulations);
       const nationTotals = data.groups.map(group => sum(bandPopulations.map((count, age) =>
@@ -379,7 +417,8 @@
         education !== "yes" && marriage !== "yes",
         education !== "yes" && marriage !== "no"
       ];
-      const unfiltered = selected.every(Boolean) && allowed.every(Boolean) && !tall && bmi === "any" && smoking === "any";
+      const unfiltered = selected.every(Boolean) && allowed.every(Boolean) && !tall &&
+        bmi === "any" && smoking === "any" && baldness === "any";
       const counts = edges.map(() => 0);
       let estimated = 0;
       let samples = 0;
@@ -387,7 +426,7 @@
         if (!bandPopulations[age]) continue;
         const bmiShare = bmi === "any" ? 1 : data.bmiShares[age][bmi];
         const smokingShare = smoking === "any" ? 1 : data.smokingShares[age][smoking];
-        const multiplier = bandPopulations[age] * (tall ? data.tallShares[age] : 1) * bmiShare * smokingShare;
+        const multiplier = baldnessPopulations[age] * (tall ? data.tallShares[age] : 1) * bmiShare * smokingShare;
         for (let cell = 0; cell < allowed.length; cell++) {
           if (!allowed[cell]) continue;
           const share = sum(data.groups.map((group, g) => selected[g] ? group.cells[age][cell] : 0));
@@ -496,6 +535,8 @@
       const sex = sexes[sexKey];
       const isMoscow = cityKey === "moscow";
       const isWomen = sexKey === "women";
+      baldnessFilter.hidden = isWomen;
+      byId("baldness-method").hidden = isWomen;
       const title = sex.name + " " + city.genitive;
       byId("title").textContent = title;
       document.title = title + " — выбор возраста от 20 до 65 лет";
